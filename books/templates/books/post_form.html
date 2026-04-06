@@ -1,15 +1,16 @@
 {% extends "books/base.html" %}
+{% load i18n %}
 
 {% block title %}
-    {% if mode == 'create' %}Create Post{% else %}Update Post{% endif %}
+    {% if mode == 'create' %}{% trans "Create Post" %}{% else %}{% trans "Update Post" %}{% endif %}
 {% endblock %}
 
 {% block page_heading %}
-    {% if mode == 'create' %}Create Post{% else %}Update Post{% endif %}
+    {% if mode == 'create' %}{% trans "Create Post" %}{% else %}{% trans "Update Post" %}{% endif %}
 {% endblock %}
 
 {% block actions %}
-    <a class="btn btn-ghost" href="{% url 'post-list' %}">Back to list</a>
+    <a class="btn btn-ghost" href="{% url 'post-list' %}">{% trans "Back to list" %}</a>
 {% endblock %}
 
 {% block content %}
@@ -17,12 +18,11 @@
         <form method="post" enctype="multipart/form-data" class="book-form">
             {% csrf_token %}
             {{ form.as_p }}
-
             <div class="form-actions">
                 <button class="btn btn-primary" type="submit">
-                    {% if mode == 'create' %}Create Post{% else %}Save Changes{% endif %}
+                    {% if mode == 'create' %}{% trans "Create Post" %}{% else %}{% trans "Save Changes" %}{% endif %}
                 </button>
-                <a class="btn btn-ghost" href="{% url 'post-list' %}">Cancel</a>
+                <a class="btn btn-ghost" href="{% url 'post-list' %}">{% trans "Cancel" %}</a>
             </div>
         </form>
     </section>

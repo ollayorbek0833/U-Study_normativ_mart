@@ -21,6 +21,8 @@ urlpatterns = [
     path("logout/", logout_view, name="logout"),
     path("forgot-password/", forgot_password_view, name="forgot-password"),
     path("restore-password/", restore_password_view, name="restore-password"),
+    path("accounts/", include("allauth.urls")),
+    path("i18n/", include("django.conf.urls.i18n")),
 ]
 
 if settings.DEBUG:

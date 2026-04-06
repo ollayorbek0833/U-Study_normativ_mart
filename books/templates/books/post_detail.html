@@ -1,15 +1,16 @@
 {% extends "books/base.html" %}
+{% load i18n %}
 
 {% block title %}{{ post.title }}{% endblock %}
 {% block page_heading %}{{ post.title }}{% endblock %}
 
 {% block actions %}
-<a class="btn btn-ghost" href="{% url 'post-list' %}">Back to list</a>
+<a class="btn btn-ghost" href="{% url 'post-list' %}">{% trans "Back to list" %}</a>
 {% if perms.books.change_post %}
-<a class="btn btn-secondary" href="{% url 'post-update' post.pk %}">Edit</a>
+<a class="btn btn-secondary" href="{% url 'post-update' post.pk %}">{% trans "Edit" %}</a>
 {% endif %}
 {% if perms.books.delete_post %}
-<a class="btn btn-danger-outline" href="{% url 'post-delete' post.pk %}">Delete</a>
+<a class="btn btn-danger-outline" href="{% url 'post-delete' post.pk %}">{% trans "Delete" %}</a>
 {% endif %}
 {% endblock %}
 

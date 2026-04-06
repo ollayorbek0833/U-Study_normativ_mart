@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: uz\n"
+
+msgid "Normativ Library"
+msgstr "Normativ Kutubxona"
+
+msgid "Books"
+msgstr "Kitoblar"
+
+msgid "Posts"
+msgstr "Postlar"
+
+msgid "Add Post"
+msgstr "Post qo'shish"
+
+msgid "Logout"
+msgstr "Chiqish"
+
+msgid "Login"
+msgstr "Kirish"
+
+msgid "Register"
+msgstr "Ro'yxatdan o'tish"
+
+msgid "All Posts"
+msgstr "Barcha postlar"
+
+msgid "Search by title or content..."
+msgstr "Sarlavha yoki mazmun bo'yicha qidirish..."
+
+msgid "Search"
+msgstr "Qidirish"
+
+msgid "Create Post"
+msgstr "Post yaratish"
+
+msgid "Update Post"
+msgstr "Postni tahrirlash"
+
+msgid "Edit"
+msgstr "Tahrirlash"
+
+msgid "Delete"
+msgstr "O'chirish"
+
+msgid "No posts found"
+msgstr "Postlar topilmadi"
+
+msgid "Try another search query."
+msgstr "Boshqa so'z bilan qidiring."
+
+msgid "Back"
+msgstr "Orqaga"
+
+msgid "Next"
+msgstr "Keyingi"
+
+msgid "Back to list"
+msgstr "Ro'yxatga qaytish"
+
+msgid "Save Changes"
+msgstr "Saqlash"
+
+msgid "Cancel"
+msgstr "Bekor qilish"
+
+msgid "Delete Post"
+msgstr "Postni o'chirish"
+
+msgid "Confirm action"
+msgstr "Amalni tasdiqlash"
+
+msgid "This action cannot be undone."
+msgstr "Bu amalni qaytarib bo'lmaydi."
+
+msgid "Yes, delete"
+msgstr "Ha, o'chirish"
+
+msgid "Forgot Password"
+msgstr "Parolni unutdingizmi"
+
+msgid "Back to Login"
+msgstr "Kirishga qaytish"
+
+msgid "Send Code"
+msgstr "Kod yuborish"
+
+msgid "Restore Password"
+msgstr "Parolni tiklash"
+
+msgid "Reset Password"
+msgstr "Parolni yangilash"
+
+msgid "Create Account"
+msgstr "Hisob yaratish"
+
+msgid "Back to Posts"
+msgstr "Postlarga qaytish"
+
+msgid "Don't have an account? Register"
+msgstr "Hisobingiz yo'qmi? Ro'yxatdan o'ting"
+
+msgid "Forgot Password?"
+msgstr "Parolni unutdingizmi?"
+
+msgid "Login with Google"
+msgstr "Google orqali kirish"
+
+msgid "Already have an account? Login"
+msgstr "Hisobingiz bormi? Kiring"

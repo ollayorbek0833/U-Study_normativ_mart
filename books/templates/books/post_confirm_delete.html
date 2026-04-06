@@ -1,19 +1,20 @@
 {% extends "books/base.html" %}
+{% load i18n %}
 
-{% block title %}Delete Post{% endblock %}
-{% block page_heading %}Delete Post{% endblock %}
+{% block title %}{% trans "Delete Post" %}{% endblock %}
+{% block page_heading %}{% trans "Delete Post" %}{% endblock %}
 
 {% block content %}
 <section class="surface danger-shell">
-    <p class="danger-kicker">Confirm action</p>
-    <h2 class="danger-title">Delete "{{ post.title }}"?</h2>
-    <p class="danger-copy">This action cannot be undone.</p>
+    <p class="danger-kicker">{% trans "Confirm action" %}</p>
+    <h2 class="danger-title">{% trans "Delete" %} "{{ post.title }}"?</h2>
+    <p class="danger-copy">{% trans "This action cannot be undone." %}</p>
     <div class="danger-actions">
         <form method="post" class="inline-form">
             {% csrf_token %}
-            <button class="btn btn-danger" type="submit">Yes, delete</button>
+            <button class="btn btn-danger" type="submit">{% trans "Yes, delete" %}</button>
         </form>
-        <a class="btn btn-ghost" href="{% url 'post-list' %}">Cancel</a>
+        <a class="btn btn-ghost" href="{% url 'post-list' %}">{% trans "Cancel" %}</a>
     </div>
 </section>
 {% endblock %}

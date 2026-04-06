@@ -1,23 +1,26 @@
-{%extends "books/base.html" %}
+{% extends "books/base.html" %}
+{% load i18n %}
 
-{% block title %}Login{% endblock %}
-{% block page_heading %}Login{% endblock %}
+{% block title %}{% trans "Login" %}{% endblock %}
+{% block page_heading %}{% trans "Login" %}{% endblock %}
 
 {% block actions %}
-<a class="btn btn-ghost" href = {% url 'post-list' %}>Back to Posts</a>
+<a class="btn btn-ghost" href="{% url 'post-list' %}">{% trans "Back to Posts" %}</a>
 {% endblock %}
 
-{% block content %} 
+{% block content %}
 <section class="surface form-shell">
     <form method="post" class="book-form">
         {% csrf_token %}
         {{ form.as_p }}
-
         <div class="form-actions">
-            <button class = "btn btn-primary" type="submit">Login</button>
-            <a class="btn btn-ghost" href="{% url 'register' %}">Don't have an account? Register</a>
-            <a class="btn btn-ghost" href="{% url 'forgot-password' %}">Forgot Password?</a>
+            <button class="btn btn-primary" type="submit">{% trans "Login" %}</button>
+            <a class="btn btn-ghost" href="{% url 'register' %}">{% trans "Don't have an account? Register" %}</a>
+            <a class="btn btn-ghost" href="{% url 'forgot-password' %}">{% trans "Forgot Password?" %}</a>
         </div>
     </form>
+    <div class="form-actions" style="margin-top:1rem;border-top:1px solid var(--line);padding-top:1rem;">
+        <a class="btn btn-secondary" href="/accounts/google/login/?process=login">{% trans "Login with Google" %}</a>
+    </div>
 </section>
 {% endblock %}

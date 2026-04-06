@@ -1,21 +1,21 @@
-{%extends "books/base.html" %}
+{% extends "books/base.html" %}
+{% load i18n %}
 
-{% block title %}Register{% endblock %}
-{% block page_heading %}Create Account{% endblock %}
+{% block title %}{% trans "Register" %}{% endblock %}
+{% block page_heading %}{% trans "Create Account" %}{% endblock %}
 
 {% block actions %}
-<a class="btn btn-ghost" href = {% url 'post-list' %}>Back to Posts</a>
+<a class="btn btn-ghost" href="{% url 'post-list' %}">{% trans "Back to Posts" %}</a>
 {% endblock %}
 
-{% block content %} 
+{% block content %}
 <section class="surface form-shell">
     <form method="post" class="book-form">
         {% csrf_token %}
         {{ form.as_p }}
-
         <div class="form-actions">
-            <button class = "btn btn-primary" type="submit">Register</button>
-            <a class = "btn btn-ghost" href="{% url 'login' %}">Already have an account? Login</a>
+            <button class="btn btn-primary" type="submit">{% trans "Register" %}</button>
+            <a class="btn btn-ghost" href="{% url 'login' %}">{% trans "Already have an account? Login" %}</a>
         </div>
     </form>
 </section>
