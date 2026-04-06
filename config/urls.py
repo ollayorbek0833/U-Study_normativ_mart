@@ -2,7 +2,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from books.views import login_view, post_list, register_view, logout_view, post_create, post_update, post_delete, post_detail
+from books.views import (
+    login_view, post_list, register_view, logout_view,
+    post_create, post_update, post_delete, post_detail,
+    forgot_password_view, restore_password_view,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,6 +19,8 @@ urlpatterns = [
     path("register/", register_view, name="register"),
     path("login/", login_view, name="login"),
     path("logout/", logout_view, name="logout"),
+    path("forgot-password/", forgot_password_view, name="forgot-password"),
+    path("restore-password/", restore_password_view, name="restore-password"),
 ]
 
 if settings.DEBUG:

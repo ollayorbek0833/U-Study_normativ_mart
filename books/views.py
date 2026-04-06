@@ -6,8 +6,12 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import permission_required
 from functools import wraps
-from books.forms import BookForm, LoginForm, RegisterForm, PostForm
-from books.models import Book, Post
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.utils import timezone
+from threading import Thread
+from books.forms import BookForm, LoginForm, RegisterForm, PostForm, ForgotPasswordForm, RestorePasswordForm
+from books.models import Book, Post, Code, generate_code, exp_time_now
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.utils.decorators import method_decorator
 
@@ -147,3 +151,59 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect("login")
+
+
+def send_email_thread(subject, message, recipient):
+    thread = Thread(target=send_mail, args=(subject, message, 'noreply@example.com', [recipient]))
+    thread.start()
+
+
+def forgot_password_view(request):
+    if request.method == "POST":
+        form = ForgotPasswordForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            try:
+                user = User.objects.get(username=username)
+            except User.DoesNotExist:
+                form.add_error("username", "User not found.")
+                return render(request, "books/forgot_password.html", {"form": form})
+            code = Code.objects.create(
+                code=generate_code(),
+                user=user,
+                expired_date=exp_time_now(),
+            )
+            send_email_thread("Parolni tiklash", f"Code: {code.code}", user.email)
+            request.session['reset_user_id'] = user.id
+            return redirect("restore-password")
+    else:
+        form = ForgotPasswordForm()
+    return render(request, "books/forgot_password.html", {"form": form})
+
+
+def restore_password_view(request):
+    if request.method == "POST":
+        form = RestorePasswordForm(request.POST)
+        if form.is_valid():
+            code_value = form.cleaned_data["code"]
+            new_password = form.cleaned_data["new_password"]
+            user_id = request.session.get('reset_user_id')
+            if not user_id:
+                form.add_error(None, "Session expired. Try again.")
+                return render(request, "books/restore_password.html", {"form": form})
+            try:
+                code_obj = Code.objects.filter(user_id=user_id, code=code_value).latest('expired_date')
+            except Code.DoesNotExist:
+                form.add_error("code", "Invalid code.")
+                return render(request, "books/restore_password.html", {"form": form})
+            if timezone.now() > code_obj.expired_date:
+                form.add_error("code", "Code has expired.")
+                return render(request, "books/restore_password.html", {"form": form})
+            user = code_obj.user
+            user.set_password(new_password)
+            user.save()
+            del request.session['reset_user_id']
+            return redirect("login")
+    else:
+        form = RestorePasswordForm()
+    return render(request, "books/restore_password.html", {"form": form})

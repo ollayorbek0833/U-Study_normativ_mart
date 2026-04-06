@@ -1,4 +1,9 @@
+import random
+from datetime import timedelta
+
+from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 class Book(models.Model):
     title = models.CharField(max_length=255,default = '')
@@ -40,4 +45,18 @@ class Post(models.Model):
         self.is_deleted = True
         self.save(update_fields=["is_deleted", "updated_at"])
         model_label = f"{self._meta.app_label}.{self.__class__.__name__}"
-        return 1, {model_label:1}
+        return 1, {model_label: 1}
+
+
+def generate_code():
+    return random.randint(100000, 999999)
+
+
+def exp_time_now():
+    return timezone.now() + timedelta(minutes=2)
+
+
+class Code(models.Model):
+    code = models.PositiveIntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    expired_date = models.DateTimeField()
