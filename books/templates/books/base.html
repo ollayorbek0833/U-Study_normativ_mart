@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{% block title %}Normativ Library{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'books/css/style.css' %}" />
+    </head>
+    <body class="page">
+        <div class="ambient ambient-left" aria-hidden="true"></div>
+        <div class="ambient ambient-right" aria-hidden="true"></div>
+
+        <header class="site-header">
+            <div class="container header-inner">
+                <a class="brand" href="{% url 'books:list' %}">
+                    <span class="brand-mark">N</span>
+                    <span class="brand-text">Normativ Library</span>
+                </a>
+
+                {% block header_search %}{% endblock %}
+
+                <nav class="site-nav" aria-label="Primary navigation">
+                    <a class="nav-link" href="{% url 'books:list' %}">Books</a>
+                    <a class="nav-link" href="{% url 'post-list' %}">Posts</a>
+                    {% if request.user.is_authenticated %}
+                        {% if perms.books.add_post %}
+                        <a class="nav-link nav-link-accent" href="{% url 'post-create' %}">Add Post</a>
+                        {% endif %}
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        <a class="nav-link nav-link-accent" href="{% url 'register' %}">Register</a>
+                    {% endif %}
+                </nav>
+            </div>
+        </header>
+
+        <main class="container page-content">
+            <section class="page-intro">
+                <p class="eyebrow">Django CRUD Workspace</p>
+                <div class="intro-row">
+                    <h1 class="page-title">{% block page_heading %}Books{% endblock %}</h1>
+                    <div class="intro-actions">
+                        {% block actions %}{% endblock %}
+                    </div>
+                </div>
+            </section>
+
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+                <p>Built for U-Study normativ tasks.</p>
+            </div>
+        </footer>
+    </body>
+</html>

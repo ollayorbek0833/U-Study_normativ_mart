@@ -1,0 +1,79 @@
+{% extends "books/base.html" %}
+
+{% block title %}All Posts{% endblock %}
+{% block page_heading %}All Posts{% endblock %}
+
+{% block header_search %}
+<form method="get" action="{% url 'post-list' %}" class="header-search-form">
+    <input
+        type="text"
+        name="q"
+        value="{{ q }}"
+        placeholder="Search by title or content..."
+        class="header-search-input"
+    />
+    <button type="submit" class="btn btn-secondary">Search</button>
+</form>
+{% endblock %}
+
+{% block actions %}
+{% if perms.books.add_post %}
+<a class="btn btn-primary" href="{% url 'post-create' %}">+ Create Post</a>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="surface card-stack">
+    {% if posts %}
+        <ul class="book-grid">
+            {% for post in posts %}
+                <li class="book-card">
+                    <div>
+                        <h2 class="book-title">{{ post.title }}</h2>
+                        <p class="book-author">{{ post.content|truncatechars:140 }}</p>
+                    </div>
+                    <div class="card-actions">
+                        {% if perms.books.change_post %}
+                        <a class="btn btn-secondary" href="{% url 'post-update' post.pk %}">Edit</a>
+                        {% endif %}
+                        {% if perms.books.delete_post %}
+                        <a class="btn btn-danger-outline" href="{% url 'post-delete' post.pk %}">Delete</a>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="empty-state">
+            <h2>No posts found</h2>
+            <p>Try another search query.</p>
+        </div>
+    {% endif %}
+
+    {% if page_obj.paginator.num_pages > 1 %}
+        <nav class="pagination-wrap" aria-label="Post pages">
+            {% if page_obj.has_previous %}
+                <a class="btn btn-ghost" href="?{% if q %}q={{ q|urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}">
+                    &larr; Back
+                </a>
+            {% endif %}
+
+            <div class="page-numbers">
+                {% for number in page_obj.paginator.page_range %}
+                    {% if number == page_obj.number %}
+                        <span class="page-number active">{{ number }}</span>
+                    {% else %}
+                        <a class="page-number" href="?{% if q %}q={{ q|urlencode }}&{% endif %}page={{ number }}">{{ number }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-ghost" href="?{% if q %}q={{ q|urlencode }}&{% endif %}page={{ page_obj.next_page_number }}">
+                    Next &rarr;
+                </a>
+            {% endif %}
+        </nav>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "books/base.html" %}
+
+{% block title %}
+    {% if mode == 'create' %}Create Post{% else %}Update Post{% endif %}
+{% endblock %}
+
+{% block page_heading %}
+    {% if mode == 'create' %}Create Post{% else %}Update Post{% endif %}
+{% endblock %}
+
+{% block actions %}
+    <a class="btn btn-ghost" href="{% url 'post-list' %}">Back to list</a>
+{% endblock %}
+
+{% block content %}
+    <section class="surface form-shell">
+        <form method="post" class="book-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">
+                    {% if mode == 'create' %}Create Post{% else %}Save Changes{% endif %}
+                </button>
+                <a class="btn btn-ghost" href="{% url 'post-list' %}">Cancel</a>
+            </div>
+        </form>
+    </section>
+{% endblock %}
